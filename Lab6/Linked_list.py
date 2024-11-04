@@ -1,10 +1,10 @@
 class Node:
-    def init(self, data):
+    def _init(self, data):  # Corrected to __init_
         self.data = data
         self.next = None
 
 class LinkedList:
-    def init(self):
+    def _init(self):  # Corrected to __init_
         self.head = None
 
     def append(self, data):
@@ -25,35 +25,6 @@ class LinkedList:
             fast = fast.next.next
         return slow.data if slow else None
 
-ll = LinkedList()
-ll.append(1)
-ll.append(2)
-ll.append(3)
-ll.append(4)
-ll.append(5)
-
-print(ll.find_middle()) 
-
-##
-class Node:
-    def init(self, data):
-        self.data = data
-        self.next = None
-
-class LinkedList:
-    def init(self):
-        self.head = None
-
-    def append(self, data):
-        new_node = Node(data)
-        if not self.head:
-            self.head = new_node
-            return
-        current = self.head
-        while current.next:
-            current = current.next
-        current.next = new_node
-
     def has_cycle(self):
         slow = self.head
         fast = self.head
@@ -62,43 +33,7 @@ class LinkedList:
             fast = fast.next.next     
             if slow == fast:
                 return True           
-        return False                 
-
-# Test the has_cycle method
-ll = LinkedList()
-ll.append(1)
-ll.append(2)
-ll.append(3)
-ll.append(4)
-ll.append(5)
-
-# Manually create a cycle for testing
-ll.head.next.next.next.next.next = ll.head.next  
-
-print(ll.has_cycle())
-
-ll.head.next.next.next.next.next = None
-print(ll.has_cycle())  
-
-##
-class Node:
-    def init(self, data):
-        self.data = data
-        self.next = None
-
-class LinkedList:
-    def init(self):
-        self.head = None
-
-    def append(self, data):
-        new_node = Node(data)
-        if not self.head:
-            self.head = new_node
-            return
-        current = self.head
-        while current.next:
-            current = current.next
-        current.next = new_node
+        return False
 
     def display(self):
         elements = []
@@ -121,52 +56,6 @@ class LinkedList:
             else:
                 seen.add(current.next.data)      
                 current = current.next            
-
-# Test the remove_duplicates method
-ll = LinkedList()
-ll.append(1)
-ll.append(2)
-ll.append(3)
-ll.append(2)
-ll.append(4)
-ll.append(3)
-
-print("Before removing duplicates:")
-ll.display()  
-
-ll.remove_duplicates()
-
-print("After removing duplicates:")
-ll.display()  
-
-
-##
-class Node:
-    def init(self, data):
-        self.data = data
-        self.next = None
-
-class LinkedList:
-    def init(self):
-        self.head = None
-
-    def append(self, data):
-        new_node = Node(data)
-        if not self.head:
-            self.head = new_node
-            return
-        current = self.head
-        while current.next:
-            current = current.next
-        current.next = new_node
-
-    def display(self):
-        elements = []
-        current = self.head
-        while current:
-            elements.append(current.data)
-            current = current.next
-        print(" -> ".join(map(str, elements)))
 
     @staticmethod
     def merge_sorted(list1, list2):
@@ -193,6 +82,51 @@ class LinkedList:
         merged_list.head = dummy.next
         return merged_list
 
+# Testing the LinkedList methods
+# Test find_middle
+ll = LinkedList()
+ll.append(1)
+ll.append(2)
+ll.append(3)
+ll.append(4)
+ll.append(5)
+
+print("Middle element:", ll.find_middle())
+
+# Test has_cycle
+ll_with_cycle = LinkedList()
+ll_with_cycle.append(1)
+ll_with_cycle.append(2)
+ll_with_cycle.append(3)
+ll_with_cycle.append(4)
+ll_with_cycle.append(5)
+
+# Manually create a cycle for testing
+ll_with_cycle.head.next.next.next.next.next = ll_with_cycle.head.next  
+print("Has cycle:", ll_with_cycle.has_cycle())  # Should print True
+
+# Break the cycle
+ll_with_cycle.head.next.next.next.next.next = None
+print("Has cycle after breaking:", ll_with_cycle.has_cycle())  # Should print False
+
+# Test remove_duplicates
+ll_duplicates = LinkedList()
+ll_duplicates.append(1)
+ll_duplicates.append(2)
+ll_duplicates.append(3)
+ll_duplicates.append(2)
+ll_duplicates.append(4)
+ll_duplicates.append(3)
+
+print("Before removing duplicates:")
+ll_duplicates.display()  
+
+ll_duplicates.remove_duplicates()
+
+print("After removing duplicates:")
+ll_duplicates.display()  
+
+# Test merge_sorted
 ll1 = LinkedList()
 ll1.append(1)
 ll1.append(3)
